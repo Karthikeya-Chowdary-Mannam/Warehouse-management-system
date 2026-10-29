@@ -1,0 +1,11 @@
+{% extends 'base.html' %}{% block title %}Overview{% endblock %}
+{% block content %}
+<div class="page-heading"><div><div class="eyebrow">OPERATIONS / OVERVIEW</div><h1>Your warehouse, at a glance.</h1><p class="lead">A connected view of stock, orders and warehouse activity.</p></div><a class="button primary" href="{{ url_for('list_data', table='sales_order') }}">View sales orders <span>↗</span></a></div>
+<div class="welcome-strip"><div class="welcome-icon">✳</div><div><strong>Good to see you, Manager</strong><p>One place to manage every warehouse, from incoming stock to customer delivery.</p></div><span class="welcome-tag">ALL WAREHOUSES</span></div>
+<div class="section-title"><div><h2>Business snapshot</h2><p>Live totals across your operation</p></div><span class="quiet-label">DATABASE COUNTS</span></div>
+<div class="stats-grid">
+{% for key, icon, color, copy in [('warehouse','▦','blue','Locations'),('employee','♙','violet','Team members'),('supplier','↗','orange','Suppliers'),('customer','♧','green','Customers'),('product','◇','blue','Products'),('sales_order','▤','violet','Sales orders'),('purchase_order','⇣','orange','Purchase orders')] %}
+<a class="stat-card" href="{{ url_for('list_data',table=key) }}"><div class="stat-top"><span>{{ copy }}</span><span class="stat-icon {{ color }}">{{ icon }}</span></div><div class="stat-number">{{ stats.get(key,'—') }}</div><div class="stat-bottom">Open records <span>→</span></div></a>{% endfor %}
+</div>
+<div class="quick-grid"><a href="{{ url_for('create_data',table='product') }}" class="quick-card"><span class="quick-icon">＋</span><span><b>Add a product</b><small>Expand your catalog</small></span><i>→</i></a><a href="{{ url_for('create_data',table='purchase_order') }}" class="quick-card"><span class="quick-icon lilac">↧</span><span><b>Record a purchase order</b><small>Log incoming supply</small></span><i>→</i></a><a href="{{ url_for('create_data',table='stock_transfer') }}" class="quick-card"><span class="quick-icon sand">⇄</span><span><b>Transfer stock</b><small>Move between locations</small></span><i>→</i></a></div>
+{% endblock %}
